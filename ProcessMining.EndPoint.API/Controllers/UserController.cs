@@ -1,4 +1,5 @@
-﻿using ProcessMining.Core.ApplicationService.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.Domain.Models;
 
 namespace ProcessMining.EndPoint.API.Controllers
@@ -10,6 +11,11 @@ namespace ProcessMining.EndPoint.API.Controllers
         public UserController(IUserService service) : base(service)
         {
             _service = service;
+        }
+        [HttpPost]
+        public override Task InsertAsync(User entity)
+        {
+            return base.InsertAsync(entity);
         }
     }
 }

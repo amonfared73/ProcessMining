@@ -16,27 +16,27 @@ namespace ProcessMining.EndPoint.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _baseService.GetAllAsync();
         }
         [HttpGet("{id}")]
-        public async Task<T?> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
             return await _baseService.GetByIdAsync(id);
         }
         [HttpPost]
-        public async Task InsertAsync(T entity)
+        public virtual async Task InsertAsync(T entity)
         {
             await _baseService.InsertAsync(entity);
         }
         [HttpPut]
-        public async Task UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
             await _baseService.UpdateAsync(entity);
         }
         [HttpDelete("{id}")]
-        public async Task DeleteAsync(int id)
+        public virtual async Task DeleteAsync(int id)
         {
             await _baseService.DeleteAsync(id);
         }
