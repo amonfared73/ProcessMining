@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProcessMining.Core.ApplicationService.Services;
+using ProcessMining.Core.Domain.DTOs;
 using ProcessMining.Core.Domain.Models;
 using ProcessMining.Infra.EntityFramework.DbContextes;
+using ProcessMining.Infra.Tools.Hashers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +19,27 @@ namespace ProcessMining.Core.ApplicationService.Queries
         public UserService(IDbContextFactory<ProcessMiningDbContext> contextFactory) : base(contextFactory)
         {
             _contextFactory = contextFactory;
+        }
+        public async Task<User> GetByUsername(string username)
+        {
+            using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
+            {
+                return await context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            }
+        }
+
+        public async Task Register(UserDto userDto)
+        {
+            using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
+            {
+                string passwordHash = PasswordHasher.Hash(userDto.Password);
+                var registrationUser = new User()
+                {
+                    Username = userDto.Username,
+                    PasswordHash = passwordHash,
+                };
+                await base.InsertAsync(registrationUser);
+            }
         }
     }
 }

@@ -18,6 +18,7 @@
     <ProjectReference Include="..\ProcessMining.Core.ApplicationService\ProcessMining.Core.ApplicationService.csproj" />
     <ProjectReference Include="..\ProcessMining.Core.Domain\ProcessMining.Core.Domain.csproj" />
     <ProjectReference Include="..\ProcessMining.Infra.EntityFramework\ProcessMining.Infra.EntityFramework.csproj" />
+    <ProjectReference Include="..\ProcessMining.Infra.Tools\ProcessMining.Infra.Tools.csproj" />
   </ItemGroup>
 
 </Project>
