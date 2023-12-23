@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProcessMining.Core.ApplicationService.Queries;
 using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.Domain.DTOs;
 using ProcessMining.Core.Domain.Models;

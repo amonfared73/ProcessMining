@@ -12,12 +12,10 @@ namespace ProcessMining.EndPoint.API.Controllers
     public class AuthenticationController : ProcessMiningControllerBase<Authentication>
     {
         private readonly IAuthenticationService _service;
-        private readonly IUserService _userService;
 
-        public AuthenticationController(IAuthenticationService service, IUserService userService) : base(service)
+        public AuthenticationController(IAuthenticationService service) : base(service)
         {
             _service = service;
-            _userService = userService;
         }
     }
 }

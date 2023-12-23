@@ -4,12 +4,6 @@ using ProcessMining.Core.Domain.DTOs;
 using ProcessMining.Core.Domain.Models;
 using ProcessMining.Infra.EntityFramework.DbContextes;
 using ProcessMining.Infra.Tools.Hashers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProcessMining.Core.ApplicationService.Queries
 {
