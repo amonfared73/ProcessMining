@@ -19,6 +19,7 @@ namespace ProcessMining.EndPoint.API.Extensions
         {
             services.AddTransient(typeof(IBaseService<>), typeof(BaseService<>));
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
             return services;
         }
     }

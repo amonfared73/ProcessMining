@@ -12,7 +12,9 @@ namespace ProcessMining.Infra.EntityFramework.DbContextes
     {
         public ProcessMiningDbContext(DbContextOptions options) : base(options)
         {
+
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Authentication> Authentications { get; set; }
     }
 }

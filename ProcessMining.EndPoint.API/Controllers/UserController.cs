@@ -12,10 +12,5 @@ namespace ProcessMining.EndPoint.API.Controllers
         {
             _service = service;
         }
-        [HttpPost]
-        public override Task InsertAsync(User entity)
-        {
-            return base.InsertAsync(entity);
-        }
     }
 }
