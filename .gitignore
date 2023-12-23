@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /ProcessMining.EndPoint.API/ProcessMining.db-wal
 /ProcessMining.EndPoint.API/ProcessMining.db-shm
+/ProcessMining.EndPoint.API/ProcessMining.db-wal
+/ProcessMining.EndPoint.API/ProcessMining.db-shm
