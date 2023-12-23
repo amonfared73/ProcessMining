@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ProcessMining.EndPoint.API/ProcessMining.db-wal
+/ProcessMining.EndPoint.API/ProcessMining.db-shm
