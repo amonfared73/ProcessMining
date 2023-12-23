@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProcessMining.Core.ApplicationService.Services;
+using ProcessMining.Core.Domain.Attributes;
 using ProcessMining.Core.Domain.DTOs;
 using ProcessMining.Core.Domain.Models;
 using ProcessMining.Infra.EntityFramework.DbContextes;
@@ -7,6 +8,7 @@ using ProcessMining.Infra.Tools.Hashers;
 
 namespace ProcessMining.Core.ApplicationService.Queries
 {
+    [RegistrationRequired]
     public class UserService : BaseService<User>, IUserService
     {
         private readonly IDbContextFactory<ProcessMiningDbContext> _contextFactory;
