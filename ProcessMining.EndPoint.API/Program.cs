@@ -18,6 +18,9 @@ namespace ProcessMining.EndPoint.API
             // Add DbContext
             builder.Services.AddProcessMiningDbContext();
 
+            // Add Access Token Generator
+            builder.Services.AddAccessTokenGenerator();
+
             // Add Services
             builder.Services.AddProcessMiningServices();
 

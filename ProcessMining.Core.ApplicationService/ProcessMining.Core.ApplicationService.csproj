@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ProcessMining.Core.Domain\ProcessMining.Core.Domain.csproj" />
     <ProjectReference Include="..\ProcessMining.Infra.EntityFramework\ProcessMining.Infra.EntityFramework.csproj" />
     <ProjectReference Include="..\ProcessMining.Infra.Tools\ProcessMining.Infra.Tools.csproj" />

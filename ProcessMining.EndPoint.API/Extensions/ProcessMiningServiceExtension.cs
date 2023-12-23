@@ -17,6 +17,12 @@ namespace ProcessMining.EndPoint.API.Extensions
             return services;
         }
 
+        public static IServiceCollection AddAccessTokenGenerator(this IServiceCollection services)
+        {
+            services.AddSingleton<AccessTokenGenerator>();
+            return services;
+        }
+
         public static IServiceCollection AddProcessMiningServices(this IServiceCollection services)
         {
             // Register base services
