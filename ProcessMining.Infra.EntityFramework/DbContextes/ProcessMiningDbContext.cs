@@ -16,5 +16,6 @@ namespace ProcessMining.Infra.EntityFramework.DbContextes
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Authentication> Authentications { get; set; }
+        public DbSet<Document> Documents { get; set; }
     }
 }
