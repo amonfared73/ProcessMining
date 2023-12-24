@@ -1,3 +1,4 @@
+using ProcessMining.Core.Domain.Models;
 using ProcessMining.EndPoint.API.Extensions;
 
 namespace ProcessMining.EndPoint.API
@@ -7,6 +8,12 @@ namespace ProcessMining.EndPoint.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Authentication configuration
+            var authenticationConfiguration = new AuthenticationConfiguration();
+            var configuration = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+            configuration.Bind("Authentication", authenticationConfiguration);
+            builder.Services.AddSingleton(authenticationConfiguration);
 
             // Add services to the container.
 

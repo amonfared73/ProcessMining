@@ -13,9 +13,16 @@ namespace ProcessMining.Core.ApplicationService.Queries
 {
     public class AccessTokenGenerator
     {
+        private readonly AuthenticationConfiguration _configuration;
+
+        public AccessTokenGenerator(AuthenticationConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public string GenerateToken(User user)
         {
-            SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("2034c25fb98b48bdf3a5f4147cfa373e71cb22c906a9d6697cc8d22a8f5b5831"));
+            SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.AccessTokenSecret));
             SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             List<Claim> claims = new List<Claim>()
             {
@@ -23,11 +30,11 @@ namespace ProcessMining.Core.ApplicationService.Queries
                 new Claim(ClaimTypes.Name, user.Username),
             };
             JwtSecurityToken token = new JwtSecurityToken(
-                "https://locahost:7231", 
-                "https://locahost:7231", 
+                _configuration.Issuer, 
+                _configuration.Audience, 
                 claims, 
                 DateTime.UtcNow, 
-                DateTime.UtcNow.AddMinutes(30),
+                DateTime.UtcNow.AddMinutes(_configuration.AccessTokenExpirationMinutes),
                 credentials
                 );
 
