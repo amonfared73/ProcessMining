@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProcessMining.Core.ApplicationService.Services;
+using ProcessMining.Core.Domain.Attributes;
 using ProcessMining.Core.Domain.Models;
 using ProcessMining.Infra.EntityFramework.DbContextes;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ProcessMining.Core.ApplicationService.Queries
 {
+    [RegistrationRequired]
     public class DocumentService : BaseService<Document>, IDocumentService
     {
         private readonly IDbContextFactory<ProcessMiningDbContext> _contextFactory;
