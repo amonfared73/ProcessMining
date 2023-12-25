@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProcessMining.Core.ApplicationService.Queries;
 using ProcessMining.Core.ApplicationService.Services;
+using ProcessMining.Core.ApplicationService.Services.Authenticators;
 using ProcessMining.Core.ApplicationService.TokenGenerators;
+using ProcessMining.Core.ApplicationService.TokenValidators;
 using ProcessMining.Core.Domain.Attributes;
 using ProcessMining.Infra.EntityFramework.DbContextes;
 using ProcessMining.Infra.Tools.Reflections;
@@ -22,6 +24,8 @@ namespace ProcessMining.EndPoint.API.Extensions
         {
             services.AddSingleton<AccessTokenGenerator>();
             services.AddSingleton<RefreshTokenGenerator>();
+            services.AddSingleton<RefreshTokenValidator>();
+            services.AddSingleton<Authenticator>();
             services.AddSingleton<TokenGenerator>();
             return services;
         }

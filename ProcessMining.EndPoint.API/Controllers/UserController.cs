@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProcessMining.Core.ApplicationService.Services;
+using ProcessMining.Core.ApplicationService.Services.Authenticators;
+using ProcessMining.Core.ApplicationService.Services.RefreshTokenRepositories;
 using ProcessMining.Core.ApplicationService.TokenGenerators;
+using ProcessMining.Core.ApplicationService.TokenValidators;
+using ProcessMining.Core.Domain.BaseModels;
 using ProcessMining.Core.Domain.DTOs;
 using ProcessMining.Core.Domain.Models;
 using ProcessMining.Core.Domain.Responses;
@@ -13,14 +17,16 @@ namespace ProcessMining.EndPoint.API.Controllers
     public class UserController : ProcessMiningControllerBase<User>
     {
         private readonly IUserService _service;
-        private readonly AccessTokenGenerator _accessTokenGenerator;
-        private readonly RefreshTokenGenerator _refreshTokenGenerator;
+        private readonly RefreshTokenValidator _refreshTokenValidator;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly Authenticator _authenticator;
 
-        public UserController(IUserService service, AccessTokenGenerator accessTokenGenerator, RefreshTokenGenerator refreshTokenGenerator) : base(service)
+        public UserController(IUserService service, AccessTokenGenerator accessTokenGenerator, RefreshTokenGenerator refreshTokenGenerator, RefreshTokenValidator refreshTokenValidator, IRefreshTokenRepository refreshTokenRepository, Authenticator authenticator) : base(service)
         {
             _service = service;
-            _accessTokenGenerator = accessTokenGenerator;
-            _refreshTokenGenerator = refreshTokenGenerator;
+            _refreshTokenValidator = refreshTokenValidator;
+            _refreshTokenRepository = refreshTokenRepository;
+            _authenticator = authenticator;
         }
 
         [HttpPost]
@@ -80,14 +86,40 @@ namespace ProcessMining.EndPoint.API.Controllers
             if (!isCorrectPassword)
                 return Unauthorized(new ResponseMessage("Incorrect password!"));
 
-            string accessToken = _accessTokenGenerator.GenerateToken(user);
-            string refreshToken = _refreshTokenGenerator.GenerateToken();
+            AuthenticatedUserResponse response = await _authenticator.Authenticate(user);
+            return Ok(response);
+        }
 
-            return Ok(new AuthenticatedUserResponse()
+        [HttpPost]
+        public async Task<IActionResult> RefreshAsync(RefreshReuqest refreshReuqest)
+        {
+            // Check validity
+            if (!ModelState.IsValid)
             {
-                AccessToken = accessToken,
-                RefreshToken = refreshToken
-            });
+                IEnumerable<string> messages = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage));
+                return BadRequest(new ResponseMessage(messages));
+            }
+
+            bool isValidRefreshToken = _refreshTokenValidator.Validate(refreshReuqest.RefreshToken);
+            if (!isValidRefreshToken)
+            {
+                return BadRequest(new ResponseMessage("Invalid refresh token!"));
+            }
+
+            RefreshToken refreshTokenDTO = await _refreshTokenRepository.GetByToken(refreshReuqest.RefreshToken);
+            if(refreshTokenDTO == null)
+            {
+                return NotFound(new ResponseMessage("Invalid refresh token!"));
+            }
+
+            User user = await _service.GetByIdAsync(refreshTokenDTO.UserId);
+            if (user == null)
+            {
+                return NotFound(new ResponseMessage("User not found!"));
+            }
+
+            AuthenticatedUserResponse response = await _authenticator.Authenticate(user);
+            return Ok(response);
         }
     }
 }
