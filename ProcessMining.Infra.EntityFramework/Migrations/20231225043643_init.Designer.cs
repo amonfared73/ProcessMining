@@ -10,13 +10,45 @@ using ProcessMining.Infra.EntityFramework.DbContextes;
 namespace ProcessMining.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(ProcessMiningDbContext))]
-    [Migration("20231223042633_auth")]
-    partial class auth
+    [Migration("20231225043643_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.25");
+
+            modelBuilder.Entity("ProcessMining.Core.Domain.Models.Authentication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authentications");
+                });
+
+            modelBuilder.Entity("ProcessMining.Core.Domain.Models.Document", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DocumentType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TransactionNummber")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Documents");
+                });
 
             modelBuilder.Entity("ProcessMining.Core.Domain.Models.User", b =>
                 {

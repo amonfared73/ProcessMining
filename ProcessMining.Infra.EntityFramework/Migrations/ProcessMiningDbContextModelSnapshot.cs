@@ -33,9 +33,6 @@ namespace ProcessMining.Infra.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("DocumentType")
                         .HasColumnType("INTEGER");
 
@@ -47,8 +44,6 @@ namespace ProcessMining.Infra.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
 
                     b.ToTable("Documents");
                 });
@@ -70,17 +65,6 @@ namespace ProcessMining.Infra.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ProcessMining.Core.Domain.Models.Document", b =>
-                {
-                    b.HasOne("ProcessMining.Core.Domain.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
                 });
 #pragma warning restore 612, 618
         }

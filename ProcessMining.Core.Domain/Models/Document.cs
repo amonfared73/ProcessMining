@@ -13,6 +13,5 @@ namespace ProcessMining.Core.Domain.Models
         public string Name { get; set; } = string.Empty;
         public int TransactionNummber { get; set; }
         public DocumentType DocumentType { get; set; }
-        public User CreatedBy { get; set; }
     }
 }
