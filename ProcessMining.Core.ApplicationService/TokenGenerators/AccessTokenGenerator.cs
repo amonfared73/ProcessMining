@@ -9,36 +9,35 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProcessMining.Core.ApplicationService.Queries
+namespace ProcessMining.Core.ApplicationService.TokenGenerators
 {
     public class AccessTokenGenerator
     {
         private readonly AuthenticationConfiguration _configuration;
+        private readonly TokenGenerator _tokenGenerator;
 
-        public AccessTokenGenerator(AuthenticationConfiguration configuration)
+        public AccessTokenGenerator(AuthenticationConfiguration configuration, TokenGenerator tokenGenerator)
         {
             _configuration = configuration;
+            _tokenGenerator = tokenGenerator;
         }
 
         public string GenerateToken(User user)
         {
-            SecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.AccessTokenSecret));
-            SigningCredentials credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
             List<Claim> claims = new List<Claim>()
             {
                 new Claim("id", user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
             };
-            JwtSecurityToken token = new JwtSecurityToken(
+
+            return _tokenGenerator.GenerateToken(
+                _configuration.AccessTokenSecret, 
                 _configuration.Issuer, 
                 _configuration.Audience, 
-                claims, 
-                DateTime.UtcNow, 
-                DateTime.UtcNow.AddMinutes(_configuration.AccessTokenExpirationMinutes),
-                credentials
-                );
+                _configuration.AccessTokenExpirationMinutes, 
+                claims);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

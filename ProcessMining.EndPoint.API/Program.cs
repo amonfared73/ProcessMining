@@ -33,6 +33,7 @@ namespace ProcessMining.EndPoint.API
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
                     ValidateAudience = true,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 

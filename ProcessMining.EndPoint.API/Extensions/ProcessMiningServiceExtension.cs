@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProcessMining.Core.ApplicationService.Queries;
 using ProcessMining.Core.ApplicationService.Services;
+using ProcessMining.Core.ApplicationService.TokenGenerators;
 using ProcessMining.Core.Domain.Attributes;
 using ProcessMining.Infra.EntityFramework.DbContextes;
 using ProcessMining.Infra.Tools.Reflections;
@@ -20,6 +21,8 @@ namespace ProcessMining.EndPoint.API.Extensions
         public static IServiceCollection AddAccessTokenGenerator(this IServiceCollection services)
         {
             services.AddSingleton<AccessTokenGenerator>();
+            services.AddSingleton<RefreshTokenGenerator>();
+            services.AddSingleton<TokenGenerator>();
             return services;
         }
 

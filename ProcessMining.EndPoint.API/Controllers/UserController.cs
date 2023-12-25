@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProcessMining.Core.ApplicationService.Queries;
 using ProcessMining.Core.ApplicationService.Services;
+using ProcessMining.Core.ApplicationService.TokenGenerators;
 using ProcessMining.Core.Domain.DTOs;
 using ProcessMining.Core.Domain.Models;
 using ProcessMining.Core.Domain.Responses;
@@ -14,11 +14,13 @@ namespace ProcessMining.EndPoint.API.Controllers
     {
         private readonly IUserService _service;
         private readonly AccessTokenGenerator _accessTokenGenerator;
+        private readonly RefreshTokenGenerator _refreshTokenGenerator;
 
-        public UserController(IUserService service, AccessTokenGenerator accessTokenGenerator) : base(service)
+        public UserController(IUserService service, AccessTokenGenerator accessTokenGenerator, RefreshTokenGenerator refreshTokenGenerator) : base(service)
         {
             _service = service;
             _accessTokenGenerator = accessTokenGenerator;
+            _refreshTokenGenerator = refreshTokenGenerator;
         }
 
         [HttpPost]
@@ -79,10 +81,12 @@ namespace ProcessMining.EndPoint.API.Controllers
                 return Unauthorized(new ResponseMessage("Incorrect password!"));
 
             string accessToken = _accessTokenGenerator.GenerateToken(user);
+            string refreshToken = _refreshTokenGenerator.GenerateToken();
 
             return Ok(new AuthenticatedUserResponse()
             {
-                AccessToken = accessToken
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
             });
         }
     }
