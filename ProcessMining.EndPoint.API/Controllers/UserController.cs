@@ -112,6 +112,8 @@ namespace ProcessMining.EndPoint.API.Controllers
                 return NotFound(new ResponseMessage("Invalid refresh token!"));
             }
 
+            await _refreshTokenRepository.Delete(refreshTokenDTO.Id);
+
             User user = await _service.GetByIdAsync(refreshTokenDTO.UserId);
             if (user == null)
             {
