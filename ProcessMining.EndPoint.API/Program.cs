@@ -16,6 +16,7 @@ namespace ProcessMining.EndPoint.API
             // Authentication configuration
             var authenticationConfiguration = new AuthenticationConfiguration();
             var configuration = builder.Services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+            var connectionString = configuration.GetConnectionString("sqlite");
             configuration.Bind("Authentication", authenticationConfiguration);
             builder.Services.AddSingleton(authenticationConfiguration);
 
@@ -69,7 +70,7 @@ namespace ProcessMining.EndPoint.API
             });
 
             // Add DbContext
-            builder.Services.AddProcessMiningDbContext();
+            builder.Services.AddProcessMiningDbContext(connectionString);
 
             // Add Access Token Generator
             builder.Services.AddAccessTokenGenerator();

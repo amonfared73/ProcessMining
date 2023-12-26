@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProcessMining.Infra.EntityFramework.DbContextes;
 
@@ -10,9 +11,10 @@ using ProcessMining.Infra.EntityFramework.DbContextes;
 namespace ProcessMining.Infra.EntityFramework.Migrations
 {
     [DbContext(typeof(ProcessMiningDbContext))]
-    partial class ProcessMiningDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231226173127_token")]
+    partial class token
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.25");

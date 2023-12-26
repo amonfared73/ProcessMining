@@ -11,7 +11,7 @@ namespace ProcessMining.Core.ApplicationService.Services.RefreshTokenRepositorie
     {
         Task<RefreshToken> GetByToken(string token);
         Task Create(RefreshToken refreshToken);
-        Task Delete(Guid id);
+        Task Delete(int id);
         Task DeleteAll(int userId);
     }
 }

@@ -13,9 +13,9 @@ namespace ProcessMining.EndPoint.API.Extensions
 {
     public static class ProcessMiningServiceExtension
     {
-        public static IServiceCollection AddProcessMiningDbContext(this IServiceCollection services)
+        public static IServiceCollection AddProcessMiningDbContext(this IServiceCollection services, string connectionString)
         {
-            var connectionString = "Data Source=ProcessMining.db";
+            //var connectionString = "Data Source=ProcessMining.db";
             services.AddDbContext<ProcessMiningDbContext>(options => options.UseSqlite(connectionString), optionsLifetime: ServiceLifetime.Singleton);
             services.AddDbContextFactory<ProcessMiningDbContext, ProcessMiningDbContextFactory>(options => options.UseSqlite(connectionString));
             return services;

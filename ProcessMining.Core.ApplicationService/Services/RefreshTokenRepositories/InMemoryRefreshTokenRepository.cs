@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace ProcessMining.Core.ApplicationService.Services.RefreshTokenRepositories
 {
-    [RegistrationRequired]
+    //[RegistrationRequired]
     public class InMemoryRefreshTokenRepository : IRefreshTokenRepository
     {
         private readonly List<RefreshToken> _refreshTokens = new List<RefreshToken>();
         public Task Create(RefreshToken refreshToken)
         {
-            refreshToken.Id = Guid.NewGuid();
+            //refreshToken.Id = Guid.NewGuid();
             _refreshTokens.Add(refreshToken);
             return Task.CompletedTask;
         }
 
-        public Task Delete(Guid id)
+        public Task Delete(int id)
         {
             _refreshTokens.RemoveAll(r => r.Id == id);
             return Task.CompletedTask;

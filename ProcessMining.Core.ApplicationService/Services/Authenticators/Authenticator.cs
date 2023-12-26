@@ -15,13 +15,13 @@ namespace ProcessMining.Core.ApplicationService.Services.Authenticators
     {
         private readonly AccessTokenGenerator _accessTokenGenerator;
         private readonly RefreshTokenGenerator _refreshTokenGenerator;
-        private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly IRefreshTokenService _refreshTokenService;
 
-        public Authenticator(AccessTokenGenerator accessTokenGenerator, RefreshTokenGenerator refreshTokenGenerator, IRefreshTokenRepository refreshTokenRepository)
+        public Authenticator(AccessTokenGenerator accessTokenGenerator, RefreshTokenGenerator refreshTokenGenerator, IRefreshTokenService refreshTokenservice)
         {
             _accessTokenGenerator = accessTokenGenerator;
             _refreshTokenGenerator = refreshTokenGenerator;
-            _refreshTokenRepository = refreshTokenRepository;
+            _refreshTokenService = refreshTokenservice;
         }
 
         public async Task<AuthenticatedUserResponse> Authenticate(User user)
@@ -34,7 +34,7 @@ namespace ProcessMining.Core.ApplicationService.Services.Authenticators
                 Token = refreshToken,
                 UserId = user.Id,
             };
-            await _refreshTokenRepository.Create(refreshTokenDTO);
+            await _refreshTokenService.CreateToken(refreshTokenDTO);
 
             return new AuthenticatedUserResponse()
             {

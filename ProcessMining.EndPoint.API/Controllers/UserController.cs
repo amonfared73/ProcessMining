@@ -19,15 +19,15 @@ namespace ProcessMining.EndPoint.API.Controllers
     public class UserController : ProcessMiningControllerBase<User>
     {
         private readonly IUserService _service;
-        private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly IRefreshTokenService _refreshTokenRepository;
         private readonly RefreshTokenValidator _refreshTokenValidator;
         private readonly Authenticator _authenticator;
 
-        public UserController(IUserService service, AccessTokenGenerator accessTokenGenerator, RefreshTokenGenerator refreshTokenGenerator, RefreshTokenValidator refreshTokenValidator, IRefreshTokenRepository refreshTokenRepository, Authenticator authenticator) : base(service)
+        public UserController(IUserService service, AccessTokenGenerator accessTokenGenerator, RefreshTokenGenerator refreshTokenGenerator, RefreshTokenValidator refreshTokenValidator, IRefreshTokenService refreshTokenService, Authenticator authenticator) : base(service)
         {
             _service = service;
             _refreshTokenValidator = refreshTokenValidator;
-            _refreshTokenRepository = refreshTokenRepository;
+            _refreshTokenRepository = refreshTokenService;
             _authenticator = authenticator;
         }
 
@@ -114,7 +114,7 @@ namespace ProcessMining.EndPoint.API.Controllers
                 return NotFound(new ResponseMessage("Invalid refresh token!"));
             }
 
-            await _refreshTokenRepository.Delete(refreshTokenDTO.Id);
+            await _refreshTokenRepository.DeleteTokenById(refreshTokenDTO.Id);
 
             User user = await _service.GetByIdAsync(refreshTokenDTO.UserId);
             if (user == null)
@@ -135,7 +135,7 @@ namespace ProcessMining.EndPoint.API.Controllers
             {
                 return Unauthorized();
             }
-            await _refreshTokenRepository.DeleteAll(userId);
+            await _refreshTokenRepository.DeleteAllUserTokens(userId);
             return NoContent();
         }
     }

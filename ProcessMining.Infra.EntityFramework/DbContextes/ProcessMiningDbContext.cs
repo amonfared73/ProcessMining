@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProcessMining.Core.Domain.BaseModels;
 using ProcessMining.Core.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,6 @@ namespace ProcessMining.Infra.EntityFramework.DbContextes
         public DbSet<User> Users { get; set; }
         public DbSet<Authentication> Authentications { get; set; }
         public DbSet<Document> Documents { get; set; }
+        public DbSet<RefreshToken> RefreshTokens{ get; set; }
     }
 }
