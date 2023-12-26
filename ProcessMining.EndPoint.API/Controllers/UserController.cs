@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.ApplicationService.Services.Authenticators;
 using ProcessMining.Core.ApplicationService.Services.RefreshTokenRepositories;
@@ -11,6 +12,7 @@ using ProcessMining.Core.Domain.Responses;
 using ProcessMining.Core.Domain.ViewModels;
 using ProcessMining.Infra.Tools.Hashers;
 using System.Diagnostics.Eventing.Reader;
+using System.Security.Claims;
 
 namespace ProcessMining.EndPoint.API.Controllers
 {
@@ -122,6 +124,19 @@ namespace ProcessMining.EndPoint.API.Controllers
 
             AuthenticatedUserResponse response = await _authenticator.Authenticate(user);
             return Ok(response);
+        }
+
+        [HttpDelete]
+        [Authorize]
+        public async Task<IActionResult> LogoutAsync()
+        {
+            string rawUserId = HttpContext.User.FindFirstValue("id");
+            if(!int.TryParse(rawUserId, out int userId))
+            {
+                return Unauthorized();
+            }
+            await _refreshTokenRepository.DeleteAll(userId);
+            return NoContent();
         }
     }
 }

@@ -25,6 +25,12 @@ namespace ProcessMining.Core.ApplicationService.Services.RefreshTokenRepositorie
             return Task.CompletedTask;
         }
 
+        public Task DeleteAll(int userId)
+        {
+            _refreshTokens.RemoveAll(r => r.UserId == userId);
+            return Task.CompletedTask;
+        }
+
         public Task<RefreshToken> GetByToken(string token)
         {
             RefreshToken refreshToken = _refreshTokens.FirstOrDefault(r => r.Token == token);
