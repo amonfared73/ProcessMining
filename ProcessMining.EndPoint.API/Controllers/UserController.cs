@@ -17,8 +17,8 @@ namespace ProcessMining.EndPoint.API.Controllers
     public class UserController : ProcessMiningControllerBase<User>
     {
         private readonly IUserService _service;
-        private readonly RefreshTokenValidator _refreshTokenValidator;
         private readonly IRefreshTokenRepository _refreshTokenRepository;
+        private readonly RefreshTokenValidator _refreshTokenValidator;
         private readonly Authenticator _authenticator;
 
         public UserController(IUserService service, AccessTokenGenerator accessTokenGenerator, RefreshTokenGenerator refreshTokenGenerator, RefreshTokenValidator refreshTokenValidator, IRefreshTokenRepository refreshTokenRepository, Authenticator authenticator) : base(service)

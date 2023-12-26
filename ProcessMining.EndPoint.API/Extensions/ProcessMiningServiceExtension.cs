@@ -2,6 +2,7 @@
 using ProcessMining.Core.ApplicationService.Queries;
 using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.ApplicationService.Services.Authenticators;
+using ProcessMining.Core.ApplicationService.Services.RefreshTokenRepositories;
 using ProcessMining.Core.ApplicationService.TokenGenerators;
 using ProcessMining.Core.ApplicationService.TokenValidators;
 using ProcessMining.Core.Domain.Attributes;
@@ -38,11 +39,12 @@ namespace ProcessMining.EndPoint.API.Extensions
             // Get all services corresponding to Registration Required Attribute
             var repositoryTypes = Assemblies.GetServices("ProcessMining.Core.ApplicationService", typeof(RegistrationRequiredAttribute));
 
+
             // Register each service
             foreach (var repositoryType in repositoryTypes)
             {
                 var repositoryInterface = repositoryType.GetInterfaces().Where(i => !i.IsGenericType).FirstOrDefault();
-                services.AddTransient(repositoryInterface, repositoryType);
+                services.AddSingleton(repositoryInterface, repositoryType);
             }
 
             // Return extension method value

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProcessMining.Core.Domain.Attributes
 {
+    // Registering all required services
     public class RegistrationRequiredAttribute : Attribute
     {
     }
