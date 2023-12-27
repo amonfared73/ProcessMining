@@ -10,6 +10,6 @@ namespace ProcessMining.Core.Domain.BaseViewModels
     public class PagedResultViewModel<T> where T : DomainObject
     {
         public Pagination Pagination { get; set; }
-        IEnumerable<T> Data { get; set; }
+        public IEnumerable<T> Data { get; set; }
     }
 }
