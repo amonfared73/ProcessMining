@@ -3,11 +3,6 @@ using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.Domain.Attributes;
 using ProcessMining.Core.Domain.BaseModels;
 using ProcessMining.Infra.EntityFramework.DbContextes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProcessMining.Core.ApplicationService.Queries
 {

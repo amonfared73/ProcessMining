@@ -2,7 +2,6 @@
 using ProcessMining.Core.ApplicationService.Queries;
 using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.ApplicationService.Services.Authenticators;
-using ProcessMining.Core.ApplicationService.Services.RefreshTokenRepositories;
 using ProcessMining.Core.ApplicationService.TokenGenerators;
 using ProcessMining.Core.ApplicationService.TokenValidators;
 using ProcessMining.Core.Domain.Attributes;
@@ -26,7 +25,7 @@ namespace ProcessMining.EndPoint.API.Extensions
             services.AddSingleton<AccessTokenGenerator>();
             services.AddSingleton<RefreshTokenGenerator>();
             services.AddSingleton<RefreshTokenValidator>();
-            services.AddSingleton<Authenticator>();
+            services.AddScoped<Authenticator>();
             services.AddSingleton<TokenGenerator>();
             return services;
         }
@@ -44,7 +43,7 @@ namespace ProcessMining.EndPoint.API.Extensions
             foreach (var repositoryType in repositoryTypes)
             {
                 var repositoryInterface = repositoryType.GetInterfaces().Where(i => !i.IsGenericType).FirstOrDefault();
-                services.AddSingleton(repositoryInterface, repositoryType);
+                services.AddScoped(repositoryInterface, repositoryType);
             }
 
             // Return extension method value

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.ApplicationService.Services.Authenticators;
-using ProcessMining.Core.ApplicationService.Services.RefreshTokenRepositories;
 using ProcessMining.Core.ApplicationService.TokenGenerators;
 using ProcessMining.Core.ApplicationService.TokenValidators;
 using ProcessMining.Core.Domain.BaseModels;
@@ -11,7 +10,6 @@ using ProcessMining.Core.Domain.Models;
 using ProcessMining.Core.Domain.Responses;
 using ProcessMining.Core.Domain.ViewModels;
 using ProcessMining.Infra.Tools.Hashers;
-using System.Diagnostics.Eventing.Reader;
 using System.Security.Claims;
 
 namespace ProcessMining.EndPoint.API.Controllers
