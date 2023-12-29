@@ -18,5 +18,9 @@ namespace ProcessMining.Infra.Tools.Extentions
         {
             return !string.IsNullOrWhiteSpace(request.SearchTerm) ? source.Where(t => t.ToString().Contains(request.SearchTerm)) : source;
         }
+        public static IEnumerable<T> ApplySorting<T>(this IEnumerable<T> source, SortingRequestViewModel request)
+        {
+            return source;
+        }
     }
 }
