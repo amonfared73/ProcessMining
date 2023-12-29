@@ -13,5 +13,9 @@ namespace ProcessMining.Core.Domain.Models
         public string Name { get; set; } = string.Empty;
         public int TransactionNummber { get; set; }
         public DocumentType DocumentType { get; set; }
+        public override string ToString()
+        {
+            return string.Format("Transaction Name: {0}, TransactionNummber: {1}, DocumentType: {2}", Name, TransactionNummber.ToString(), DocumentType.ToString());
+        }
     }
 }

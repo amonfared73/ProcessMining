@@ -10,7 +10,7 @@ namespace ProcessMining.Infra.Tools.Extentions
 {
     public static class PaginationRequestExtensions
     {
-        public static PaginationRequestViewModel Fix(this PaginationRequestViewModel model)
+        public static PaginationRequestViewModel FixPagination(this PaginationRequestViewModel model)
         {
             if (model.PageNumber == 0 || model.RecordsPerPage == 0)
             {

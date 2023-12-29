@@ -10,5 +10,9 @@ namespace ProcessMining.Core.Domain.Models
     public class Car : DomainObject
     {
         public string Name { get; set; }
+        public override string ToString()
+        {
+            return string.Format("Car name: {0}", Name);
+        }
     }
 }

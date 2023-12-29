@@ -1,4 +1,5 @@
 ﻿using ProcessMining.Core.Domain.BaseModels;
+using ProcessMining.Core.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace ProcessMining.Core.Domain.BaseViewModels
 {
     public class SortingItemViewModel
     {
+        public string Field { get; set; }
+        public SortingType SortingType { get; set; }
     }
 }
