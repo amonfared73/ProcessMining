@@ -3,6 +3,7 @@ using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.Domain.BaseModels;
 using ProcessMining.Core.Domain.BaseViewModels;
 using ProcessMining.Infra.EntityFramework.DbContextes;
+using ProcessMining.Infra.Tools.Extentions;
 
 namespace ProcessMining.Core.ApplicationService.Queries
 {
@@ -21,13 +22,8 @@ namespace ProcessMining.Core.ApplicationService.Queries
                 var totalRecords = data.Count();
                 return new PagedResultViewModel<T>()
                 {
-                    Data = data.Skip((request.PaginationRequest.PageNumber - 1) * request.PaginationRequest.RecordsPerPage).Take(request.PaginationRequest.RecordsPerPage),
-                    Pagination = new Pagination()
-                    {
-                        CurrentPage = request.PaginationRequest.PageNumber,
-                        TotalPages = (int)Math.Ceiling((decimal)totalRecords / request.PaginationRequest.RecordsPerPage),
-                        TotalRecords = totalRecords,
-                    }
+                    Data = data.ApplyPagination(request.PaginationRequest),
+                    Pagination = request.PaginationRequest.ToPagination(totalRecords)
                 };
             }
         }
