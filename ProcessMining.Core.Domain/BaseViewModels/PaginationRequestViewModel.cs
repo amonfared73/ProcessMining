@@ -8,7 +8,7 @@ namespace ProcessMining.Core.Domain.BaseViewModels
 {
     public class PaginationRequestViewModel
     {
-        public int Skip { get; set; } = 0;
-        public int Take { get; set; } = 10;
+        public int PageNumber { get; set; }
+        public int RecordsPerPage { get; set; }
     }
 }
