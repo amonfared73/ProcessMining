@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.Domain.BaseModels;
+using ProcessMining.Core.Domain.BaseViewModels;
 
 namespace ProcessMining.EndPoint.API.Controllers
 {
@@ -16,7 +17,7 @@ namespace ProcessMining.EndPoint.API.Controllers
         }
 
         [HttpGet]
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<PagedResultViewModel<T>> GetAllAsync()
         {
             return await _baseService.GetAllAsync();
         }

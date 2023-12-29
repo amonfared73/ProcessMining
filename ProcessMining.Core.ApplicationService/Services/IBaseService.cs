@@ -1,4 +1,5 @@
 ﻿using ProcessMining.Core.Domain.BaseModels;
+using ProcessMining.Core.Domain.BaseViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ProcessMining.Core.ApplicationService.Services
 {
     public interface IBaseService<T> where T : DomainObject
     {
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<PagedResultViewModel<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
         Task InsertAsync(T entity);
         Task UpdateAsync(T entity);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProcessMining.Core.ApplicationService.Services;
 using ProcessMining.Core.Domain.BaseModels;
+using ProcessMining.Core.Domain.BaseViewModels;
 using ProcessMining.Infra.EntityFramework.DbContextes;
 
 namespace ProcessMining.Core.ApplicationService.Queries
@@ -12,12 +13,19 @@ namespace ProcessMining.Core.ApplicationService.Queries
         {
             _contextFactory = contextFactory;
         }
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<PagedResultViewModel<T>> GetAllAsync()
         {
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
-                var query = context.Set<T>();
-                return await query.ToListAsync();
+                var data = await context.Set<T>().ToListAsync();
+                return new PagedResultViewModel<T>()
+                {
+                    Data = data,
+                    Pagination = new Pagination()
+                    {
+                        TotalRecords = data.Count,
+                    }
+                };
             }
         }
 
