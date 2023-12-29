@@ -19,5 +19,6 @@ namespace ProcessMining.Infra.EntityFramework.DbContextes
         public DbSet<Authentication> Authentications { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<RefreshToken> RefreshTokens{ get; set; }
+        public DbSet<Car> Cars { get; set; }
     }
 }
