@@ -16,10 +16,10 @@ namespace ProcessMining.EndPoint.API.Controllers
             _baseService = baseService;
         }
 
-        [HttpGet]
-        public virtual async Task<PagedResultViewModel<T>> GetAllAsync()
+        [HttpPost]
+        public virtual async Task<PagedResultViewModel<T>> GetAllAsync(BaseRequestViewModel request)
         {
-            return await _baseService.GetAllAsync();
+            return await _baseService.GetAllAsync(request);
         }
         [HttpGet("{id}")]
         public virtual async Task<T?> GetByIdAsync(int id)

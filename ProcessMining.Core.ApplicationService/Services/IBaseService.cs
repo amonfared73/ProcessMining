@@ -10,7 +10,7 @@ namespace ProcessMining.Core.ApplicationService.Services
 {
     public interface IBaseService<T> where T : DomainObject
     {
-        Task<PagedResultViewModel<T>> GetAllAsync();
+        Task<PagedResultViewModel<T>> GetAllAsync(BaseRequestViewModel request);
         Task<T> GetByIdAsync(int id);
         Task InsertAsync(T entity);
         Task UpdateAsync(T entity);

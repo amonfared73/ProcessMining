@@ -13,14 +13,14 @@ namespace ProcessMining.Core.ApplicationService.Queries
         {
             _contextFactory = contextFactory;
         }
-        public virtual async Task<PagedResultViewModel<T>> GetAllAsync()
+        public virtual async Task<PagedResultViewModel<T>> GetAllAsync(BaseRequestViewModel request)
         {
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
                 var data = await context.Set<T>().ToListAsync();
                 return new PagedResultViewModel<T>()
                 {
-                    Data = data,
+                    Data = data.Skip(request.PaginationRequest.Skip).Take(request.PaginationRequest.Take),
                     Pagination = new Pagination()
                     {
                         TotalRecords = data.Count,
