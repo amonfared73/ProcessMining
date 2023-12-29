@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace ProcessMining.Core.Domain.BaseViewModels
 {
-    public class BaseRequestViewModel
+    public class SortingRequestViewModel
     {
-        public PaginationRequestViewModel PaginationRequest { get; set; }
-        public SortingRequestViewModel SortingRequest { get; set; }
+        public IEnumerable<SortingItemViewModel> SortingItems { get; set; }
     }
 }
