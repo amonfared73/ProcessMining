@@ -8,7 +8,7 @@ namespace ProcessMining.Core.Domain.Enums
 {
     public enum SortingType
     {
-        Ascending,
-        Descending
+        Ascending = 0,
+        Descending = 1
     }
 }

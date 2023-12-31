@@ -8,6 +8,6 @@ namespace ProcessMining.Core.Domain.BaseViewModels
 {
     public class SortingRequestViewModel
     {
-        public IEnumerable<SortingItemViewModel> SortingItems { get; set; }
+        public SortingItemViewModel SortingItem { get; set; }
     }
 }

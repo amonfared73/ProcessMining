@@ -22,7 +22,7 @@ namespace ProcessMining.Core.ApplicationService.Queries
                 var totalRecords = data.Count();
                 return new PagedResultViewModel<T>()
                 {
-                    Data = data.ApplySearchTerm(request.SearchTermRequest).ApplyPagination(request.PaginationRequest),
+                    Data = data.ApplyBaseReuest(request),
                     Pagination = request.PaginationRequest.ToPagination(totalRecords)
                 };
             }
