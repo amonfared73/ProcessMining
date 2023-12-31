@@ -21,7 +21,7 @@ namespace ProcessMining.Core.ApplicationService.Queries
             {
                 var rawData = await context.Set<T>().ToListAsync();
                 var filteredData = rawData.ApplyBaseReuest(request);
-                var totalRecords = filteredData.Count();
+                var totalRecords = rawData.Count();
                 return new PagedResultViewModel<T>()
                 {
                     Data = filteredData,
