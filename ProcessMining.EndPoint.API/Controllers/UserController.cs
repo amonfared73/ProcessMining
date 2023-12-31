@@ -114,7 +114,7 @@ namespace ProcessMining.EndPoint.API.Controllers
 
             await _refreshTokenRepository.DeleteTokenById(refreshTokenDTO.Id);
 
-            User user = await _service.GetByIdAsync(refreshTokenDTO.UserId);
+            User user = await _service.GetUserForLoginAsync(refreshTokenDTO.UserId);
             if (user == null)
             {
                 return NotFound(new ResponseMessage("User not found!"));

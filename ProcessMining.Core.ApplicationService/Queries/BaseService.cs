@@ -4,6 +4,7 @@ using ProcessMining.Core.Domain.BaseModels;
 using ProcessMining.Core.Domain.BaseViewModels;
 using ProcessMining.Infra.EntityFramework.DbContextes;
 using ProcessMining.Infra.Tools.Extentions;
+using ProcessMining.Core.Domain.Responses;
 
 namespace ProcessMining.Core.ApplicationService.Queries
 {
@@ -29,12 +30,16 @@ namespace ProcessMining.Core.ApplicationService.Queries
             }
         }
 
-        public virtual async Task<T> GetByIdAsync(int id)
+        public virtual async Task<SingleResultViewModel<T>> GetByIdAsync(int id)
         {
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
                 var entity = await context.Set<T>().Where(e => e.Id == id).FirstOrDefaultAsync();
-                return entity;
+                return new SingleResultViewModel<T>()
+                {
+                    Entity = entity,
+                    ResponseMessage = new ResponseMessage(string.Format("Id: {0}, {1}", id.ToString(), entity.ToString()))
+                };
             }
         }
 

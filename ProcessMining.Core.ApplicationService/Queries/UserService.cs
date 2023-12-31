@@ -37,5 +37,12 @@ namespace ProcessMining.Core.ApplicationService.Queries
                 await base.InsertAsync(registrationUser);
             }
         }
+        public async Task<User> GetUserForLoginAsync(int id)
+        {
+            using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
+            {
+                return await context.Users.Where(e => e.Id == id).FirstOrDefaultAsync();
+            }
+        }
     }
 }

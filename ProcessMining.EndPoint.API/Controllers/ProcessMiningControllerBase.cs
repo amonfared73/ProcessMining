@@ -22,7 +22,7 @@ namespace ProcessMining.EndPoint.API.Controllers
             return await _baseService.GetAllAsync(request);
         }
         [HttpGet("{id}")]
-        public virtual async Task<T?> GetByIdAsync(int id)
+        public virtual async Task<SingleResultViewModel<T>> GetByIdAsync(int id)
         {
             return await _baseService.GetByIdAsync(id);
         }
