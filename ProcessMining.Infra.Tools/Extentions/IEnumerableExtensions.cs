@@ -15,15 +15,12 @@ namespace ProcessMining.Infra.Tools.Extentions
     {
         private static IEnumerable<T> ApplySearchTerm<T>(this IEnumerable<T> source, SearchTermViewModel request)
         {
-            return !string.IsNullOrWhiteSpace(request.SearchTerm) ? source.Where(t => t.ToString().Contains(request.SearchTerm)) : source;
+            return !string.IsNullOrWhiteSpace(request.SearchTerm) ? source.Where(t => t.ToString().ToLower().Contains(request.SearchTerm.ToLower())) : source;
         }
         private static IEnumerable<T> ApplySorting<T>(this IEnumerable<T> source, SortingRequestViewModel request)
         {
             var property = typeof(T).GetProperty(request.SortingItem.Field);
-            if (property == null)
-                return source;
-
-            if (!string.IsNullOrWhiteSpace(request.SortingItem.Field))
+            if (!string.IsNullOrWhiteSpace(request.SortingItem.Field) || property != null)
                 return request.SortingItem.SortingType == SortingType.Ascending ? source.OrderBy(t => t.GetType().GetProperty(property.Name).GetValue(t)) : source.OrderByDescending(t => t.GetType().GetProperty(property.Name).GetValue(t));
             else
                 return source;
