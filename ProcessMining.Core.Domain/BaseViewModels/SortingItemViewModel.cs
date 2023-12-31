@@ -11,6 +11,6 @@ namespace ProcessMining.Core.Domain.BaseViewModels
     public class SortingItemViewModel
     {
         public string Field { get; set; }
-        public SortingType SortingType { get; set; }
+        public SortingType SortingType { get; set; } = SortingType.Ascending;
     }
 }
