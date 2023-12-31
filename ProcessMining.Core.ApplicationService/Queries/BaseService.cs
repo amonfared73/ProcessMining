@@ -18,11 +18,12 @@ namespace ProcessMining.Core.ApplicationService.Queries
         {
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
-                var data = await context.Set<T>().ToListAsync();
-                var totalRecords = data.Count();
+                var rawData = await context.Set<T>().ToListAsync();
+                var filteredData = rawData.ApplyBaseReuest(request);
+                var totalRecords = filteredData.Count();
                 return new PagedResultViewModel<T>()
                 {
-                    Data = data.ApplyBaseReuest(request),
+                    Data = filteredData,
                     Pagination = request.PaginationRequest.ToPagination(totalRecords)
                 };
             }
