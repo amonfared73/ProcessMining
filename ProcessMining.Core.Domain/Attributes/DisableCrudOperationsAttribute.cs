@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProcessMining.Core.Domain.Attributes
 {
+    [AttributeUsage(AttributeTargets.Class)]
     public class DisableCrudOperationsAttribute : Attribute
     {
     }
