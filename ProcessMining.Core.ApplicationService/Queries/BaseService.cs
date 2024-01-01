@@ -57,13 +57,18 @@ namespace ProcessMining.Core.ApplicationService.Queries
             }
         }
 
-        public virtual async Task UpdateAsync(T entity)
+        public virtual async Task<SingleResultViewModel<T>> UpdateAsync(T entity)
         {
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
                 var currentEntity = await context.Set<T>().Where(e => e.Id == entity.Id).FirstOrDefaultAsync();
                 context.Entry(currentEntity).CurrentValues.SetValues(entity);
                 await context.SaveChangesAsync();
+                return new SingleResultViewModel<T>()
+                {
+                    Entity = entity,
+                    ResponseMessage = new ResponseMessage(string.Format("{0} updated successfully", entity.ToString()))
+                };
             }
         }
         public virtual async Task DeleteAsync(int id)

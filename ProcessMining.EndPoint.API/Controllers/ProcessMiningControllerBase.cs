@@ -32,9 +32,9 @@ namespace ProcessMining.EndPoint.API.Controllers
             return await _baseService.InsertAsync(entity);
         }
         [HttpPut]
-        public virtual async Task UpdateAsync(T entity)
+        public virtual async Task<SingleResultViewModel<T>> UpdateAsync(T entity)
         {
-            await _baseService.UpdateAsync(entity);
+            return await _baseService.UpdateAsync(entity);
         }
         [HttpDelete("{id}")]
         public virtual async Task DeleteAsync(int id)
