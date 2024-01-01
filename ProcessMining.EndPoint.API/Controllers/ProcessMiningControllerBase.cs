@@ -37,9 +37,9 @@ namespace ProcessMining.EndPoint.API.Controllers
             return await _baseService.UpdateAsync(entity);
         }
         [HttpDelete("{id}")]
-        public virtual async Task DeleteAsync(int id)
+        public virtual async Task<SingleResultViewModel<T>> DeleteAsync(int id)
         {
-            await _baseService.DeleteAsync(id);
+            return await _baseService.DeleteAsync(id);
         }
     }
 }

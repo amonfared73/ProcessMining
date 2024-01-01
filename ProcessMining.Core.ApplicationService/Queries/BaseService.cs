@@ -71,13 +71,18 @@ namespace ProcessMining.Core.ApplicationService.Queries
                 };
             }
         }
-        public virtual async Task DeleteAsync(int id)
+        public virtual async Task<SingleResultViewModel<T>> DeleteAsync(int id)
         {
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
                 var entity = await context.Set<T>().Where(e => e.Id == id).FirstOrDefaultAsync();
                 context.Remove(entity);
                 await context.SaveChangesAsync();
+                return new SingleResultViewModel<T>()
+                {
+                    Entity = entity,
+                    ResponseMessage = new ResponseMessage(string.Format("{0} deleted successfully", entity.ToString()))
+                };
             }
         }
     }

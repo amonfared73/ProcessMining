@@ -14,6 +14,6 @@ namespace ProcessMining.Core.ApplicationService.Services
         Task<SingleResultViewModel<T>> GetByIdAsync(int id);
         Task<SingleResultViewModel<T>> InsertAsync(T entity);
         Task<SingleResultViewModel<T>> UpdateAsync(T entity);
-        Task DeleteAsync(int id);
+        Task<SingleResultViewModel<T>> DeleteAsync(int id);
     }
 }
