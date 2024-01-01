@@ -43,12 +43,17 @@ namespace ProcessMining.Core.ApplicationService.Queries
             }
         }
 
-        public virtual async Task InsertAsync(T entity)
+        public virtual async Task<SingleResultViewModel<T>> InsertAsync(T entity)
         {
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
                 await context.Set<T>().AddAsync(entity);
                 await context.SaveChangesAsync();
+                return new SingleResultViewModel<T>()
+                {
+                    Entity = entity,
+                    ResponseMessage = new ResponseMessage(string.Format("{0} inserted successfully", entity.ToString()))
+                };
             }
         }
 

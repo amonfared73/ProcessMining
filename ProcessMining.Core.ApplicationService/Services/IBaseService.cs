@@ -12,7 +12,7 @@ namespace ProcessMining.Core.ApplicationService.Services
     {
         Task<PagedResultViewModel<T>> GetAllAsync(BaseRequestViewModel request);
         Task<SingleResultViewModel<T>> GetByIdAsync(int id);
-        Task InsertAsync(T entity);
+        Task<SingleResultViewModel<T>> InsertAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(int id);
     }

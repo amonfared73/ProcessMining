@@ -27,9 +27,9 @@ namespace ProcessMining.EndPoint.API.Controllers
             return await _baseService.GetByIdAsync(id);
         }
         [HttpPost]
-        public virtual async Task InsertAsync(T entity)
+        public virtual async Task<SingleResultViewModel<T>> InsertAsync(T entity)
         {
-            await _baseService.InsertAsync(entity);
+            return await _baseService.InsertAsync(entity);
         }
         [HttpPut]
         public virtual async Task UpdateAsync(T entity)

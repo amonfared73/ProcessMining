@@ -5,6 +5,7 @@ using ProcessMining.Core.ApplicationService.Services.Authenticators;
 using ProcessMining.Core.ApplicationService.TokenGenerators;
 using ProcessMining.Core.ApplicationService.TokenValidators;
 using ProcessMining.Core.Domain.BaseModels;
+using ProcessMining.Core.Domain.BaseViewModels;
 using ProcessMining.Core.Domain.DTOs;
 using ProcessMining.Core.Domain.Models;
 using ProcessMining.Core.Domain.Responses;
@@ -62,7 +63,7 @@ namespace ProcessMining.EndPoint.API.Controllers
 
         // Disabling insert user method for the client, all users must be added through registration
         [NonAction]
-        public override Task InsertAsync(User entity)
+        public override Task<SingleResultViewModel<User>> InsertAsync(User entity)
         {
             return base.InsertAsync(entity);
         }
