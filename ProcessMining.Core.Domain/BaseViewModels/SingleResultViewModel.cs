@@ -10,7 +10,7 @@ namespace ProcessMining.Core.Domain.BaseViewModels
 {
     public class SingleResultViewModel<T> where T : DomainObject
     {
-        public T Entity { get; set; }
+        public T? Entity { get; set; }
         public ResponseMessage ResponseMessage { get; set; }
     }
 }

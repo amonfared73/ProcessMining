@@ -35,6 +35,14 @@ namespace ProcessMining.Core.ApplicationService.Queries
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
                 var entity = await context.Set<T>().Where(e => e.Id == id).FirstOrDefaultAsync();
+                if (entity == null)
+                {
+                    return new SingleResultViewModel<T>()
+                    {
+                        Entity = null,
+                        ResponseMessage = new ResponseMessage(string.Format("{0} not found", typeof(T).Name))
+                    };
+                }
                 return new SingleResultViewModel<T>()
                 {
                     Entity = entity,
@@ -52,7 +60,7 @@ namespace ProcessMining.Core.ApplicationService.Queries
                 return new SingleResultViewModel<T>()
                 {
                     Entity = entity,
-                    ResponseMessage = new ResponseMessage(string.Format("{0} inserted successfully", entity.ToString()))
+                    ResponseMessage = new ResponseMessage(string.Format("{0} inserted successfully", typeof(T).Name))
                 };
             }
         }
@@ -62,12 +70,20 @@ namespace ProcessMining.Core.ApplicationService.Queries
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
                 var currentEntity = await context.Set<T>().Where(e => e.Id == entity.Id).FirstOrDefaultAsync();
+                if (currentEntity == null)
+                {
+                    return new SingleResultViewModel<T>()
+                    {
+                        Entity = null,
+                        ResponseMessage = new ResponseMessage(string.Format("{0} not found", typeof(T).Name))
+                    };
+                }
                 context.Entry(currentEntity).CurrentValues.SetValues(entity);
                 await context.SaveChangesAsync();
                 return new SingleResultViewModel<T>()
                 {
                     Entity = entity,
-                    ResponseMessage = new ResponseMessage(string.Format("{0} updated successfully", entity.ToString()))
+                    ResponseMessage = new ResponseMessage(string.Format("{0} updated successfully", typeof(T).Name))
                 };
             }
         }
@@ -76,12 +92,20 @@ namespace ProcessMining.Core.ApplicationService.Queries
             using (ProcessMiningDbContext context = _contextFactory.CreateDbContext())
             {
                 var entity = await context.Set<T>().Where(e => e.Id == id).FirstOrDefaultAsync();
+                if (entity == null)
+                {
+                    return new SingleResultViewModel<T>()
+                    {
+                        Entity = null,
+                        ResponseMessage = new ResponseMessage(string.Format("{0} not found", typeof(T).Name))
+                    };
+                }
                 context.Remove(entity);
                 await context.SaveChangesAsync();
                 return new SingleResultViewModel<T>()
                 {
                     Entity = entity,
-                    ResponseMessage = new ResponseMessage(string.Format("{0} deleted successfully", entity.ToString()))
+                    ResponseMessage = new ResponseMessage(string.Format("{0} deleted successfully", typeof(T).Name))
                 };
             }
         }
