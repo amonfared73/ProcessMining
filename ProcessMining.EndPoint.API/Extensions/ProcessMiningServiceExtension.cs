@@ -10,6 +10,7 @@ using ProcessMining.Core.ApplicationService.TokenGenerators;
 using ProcessMining.Core.ApplicationService.TokenValidators;
 using ProcessMining.Core.Domain.Attributes;
 using ProcessMining.Core.Domain.Models;
+using ProcessMining.EndPoint.API.Conventions;
 using ProcessMining.Infra.EntityFramework.DbContextes;
 using ProcessMining.Infra.Tools.Reflections;
 using System.Text;
