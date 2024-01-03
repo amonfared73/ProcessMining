@@ -12,9 +12,17 @@ namespace ProcessMining.Core.Domain.Attributes
     {
         public IEnumerable<BaseOperations> Operations { get; set; }
 
-        public DisableBaseOperationsAttribute(IEnumerable<BaseOperations> operations)
+        public DisableBaseOperationsAttribute(IEnumerable<BaseOperations> operations = null)
         {
-            Operations = operations;
+            Operations = operations == null ? 
+                new List<BaseOperations>() { 
+                    BaseOperations.GetAll, 
+                    BaseOperations.GetById, 
+                    BaseOperations.Insert, 
+                    BaseOperations.Update, 
+                    BaseOperations.Delete 
+                } 
+                : operations;
         }
     }
 }
