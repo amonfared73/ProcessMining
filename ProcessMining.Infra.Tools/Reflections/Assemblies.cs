@@ -1,4 +1,5 @@
 ﻿using ProcessMining.Core.Domain.Attributes;
+using ProcessMining.Core.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,7 @@ namespace ProcessMining.Infra.Tools.Reflections
         public static List<Type> GetServices(string assemblyName, Type attribute)
         {
             var services = new List<Type>();
-
-            var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
-            var loadedPaths = loadedAssemblies.Select(a => a.Location).ToArray();
-            var referencedPaths = System.IO.Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
-            var toLoad = referencedPaths.Where(r => !loadedPaths.Contains(r, StringComparer.InvariantCultureIgnoreCase)).ToList();
-            toLoad.ForEach(path => loadedAssemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path))));
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList().Where(a => a.FullName.Contains(assemblyName));
-
+            IEnumerable<Assembly> assemblies = GetAllAssemblies(assemblyName);
             foreach (var assembly in assemblies)
             {
                 var types = assembly.GetTypes().Where(c => c.IsClass && c.IsDefined(attribute));
@@ -33,5 +27,16 @@ namespace ProcessMining.Infra.Tools.Reflections
             return services;
 
         }
+        private static IEnumerable<Assembly> GetAllAssemblies(string assemblyName)
+        {
+            var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            var loadedPaths = loadedAssemblies.Select(a => a.Location).ToArray();
+            var referencedPaths = System.IO.Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll");
+            var toLoad = referencedPaths.Where(r => !loadedPaths.Contains(r, StringComparer.InvariantCultureIgnoreCase)).ToList();
+            toLoad.ForEach(path => loadedAssemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path))));
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList().Where(a => a.FullName.Contains(assemblyName));
+            return assemblies;
+        }
+
     }
 }
