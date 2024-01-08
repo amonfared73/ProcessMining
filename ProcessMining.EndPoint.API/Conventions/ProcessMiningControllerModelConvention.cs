@@ -22,9 +22,10 @@ namespace ProcessMining.EndPoint.API.Conventions
             bool disableCrud = controller.Attributes.Any(a => a.GetType() == typeof(DisableBaseOperationsAttribute));
             if (disableCrud)
             {
-                foreach (var actionModel in controller.Actions.Where(a => baseOperations.Contains(a.ActionName.ToBaseOperation())))
+                var crudActions = controller.Actions.Where(a => baseOperations.Contains(a.ActionName.ToBaseOperation()));
+                foreach (var action in crudActions)
                 {
-                    actionModel.ApiExplorer.IsVisible = false;
+                    action.ApiExplorer.IsVisible = false;
                 }
             }
         }

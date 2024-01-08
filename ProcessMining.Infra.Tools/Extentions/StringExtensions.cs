@@ -11,7 +11,7 @@ namespace ProcessMining.Infra.Tools.Extentions
     {
         public static BaseOperations ToBaseOperation(this string str)
         {
-            return Enum.Parse<BaseOperations>(str);
+            return (BaseOperations)Enum.Parse(typeof(BaseOperations), str, true);
         }
     }
 }
