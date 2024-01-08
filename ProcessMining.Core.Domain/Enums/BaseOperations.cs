@@ -8,10 +8,10 @@ namespace ProcessMining.Core.Domain.Enums
 {
     public enum BaseOperations
     {
-        GetAllAsync,
-        GetByIdAsync,
-        InsertAsync,
-        UpdateAsync,
-        DeleteAsync
+        GetAll,
+        GetById,
+        Insert,
+        Update,
+        Delete
     }
 }
