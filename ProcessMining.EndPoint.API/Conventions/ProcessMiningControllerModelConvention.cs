@@ -8,21 +8,21 @@ namespace ProcessMining.EndPoint.API.Conventions
 {
     public class ProcessMiningControllerModelConvention : IControllerModelConvention
     {
-        private List<BaseOperations> baseOperations;
+        private List<string> baseOperations;
         public void Apply(ControllerModel controller)
         {
-            baseOperations = new List<BaseOperations>()
+            baseOperations = new List<string>()
             {
-                BaseOperations.GetAll,
-                BaseOperations.GetById,
-                BaseOperations.Insert,
-                BaseOperations.Update,
-                BaseOperations.Delete,
+                "GetAll",
+                "GetById",
+                "Insert",
+                "Update",
+                "Delete",
             };
             bool disableCrud = controller.Attributes.Any(a => a.GetType() == typeof(DisableBaseOperationsAttribute));
             if (disableCrud)
             {
-                var crudActions = controller.Actions.Where(a => baseOperations.Contains(a.ActionName.ToBaseOperation()));
+                var crudActions = controller.Actions.Where(a => baseOperations.Contains(a.ActionName));
                 foreach (var action in crudActions)
                 {
                     action.ApiExplorer.IsVisible = false;
