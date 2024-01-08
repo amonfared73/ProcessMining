@@ -65,7 +65,7 @@ namespace ProcessMining.EndPoint.API.Extensions
             configuration.Bind("Authentication", authenticationConfiguration);
             builder.Services.AddSingleton(authenticationConfiguration);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(s => s.Conventions.Add(new ProcessMiningControllerModelConvention()));
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
             {

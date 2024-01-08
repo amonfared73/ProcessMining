@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using ProcessMining.Core.Domain.Attributes;
+using System.Reflection;
 
 namespace ProcessMining.EndPoint.API.Conventions
 {
@@ -6,7 +8,14 @@ namespace ProcessMining.EndPoint.API.Conventions
     {
         public void Apply(ControllerModel controller)
         {
-            throw new NotImplementedException();
+            if (controller.Attributes.Any(a => a.GetType().IsDefined(typeof(DisableBaseOperationsAttribute))))
+            {
+                foreach (var actionModel in controller.Actions)
+                {
+                    if(actionModel.ActionName == "GetAll")
+                        actionModel.ApiExplorer.IsVisible = false;
+                }
+            }
         }
     }
 }

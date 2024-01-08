@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProcessMining.EndPoint.API.Controllers
 {
+    [DisableBaseOperations]
     public class AuthenticationController : ProcessMiningControllerBase<Authentication>
     {
         private readonly IAuthenticationService _service;

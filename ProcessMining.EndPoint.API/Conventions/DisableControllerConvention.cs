@@ -1,33 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using ProcessMining.Core.Domain.Attributes;
 using ProcessMining.Core.Domain.Attributes.Conventions;
+using ProcessMining.Core.Domain.Enums;
+using ProcessMining.EndPoint.API.Controllers;
+using System;
+using System.Reflection;
 
 namespace ProcessMining.EndPoint.API.Conventions
 {
-    public class DisableControllerConvention : IControllerModelConvention
+    public class DisableControllerConvention : IActionModelConvention
     {
-        public void Apply(ControllerModel controller)
+        public void Apply(ActionModel action)
         {
-            if (IsConventionApplicable(controller))
-            {
-                var multipliedActions = new List<ActionModel>();
-                foreach (var action in controller.Actions)
-                {
-                    var existingAction = action;
-                    var controllerAction = new ActionModel(existingAction);
-                    controllerAction.ActionName = controllerAction.ActionName;
 
-                    multipliedActions.Add(controllerAction);
-                }
-                foreach (var action in multipliedActions)
-                {
-                    controller.Actions.Add(action);
-                }
-            }
         }
-        private bool IsConventionApplicable(ControllerModel controller)
-        {
-            return controller.Attributes.OfType<IDisableControllerConvention>().Any();
-        }
-
     }
 }
