@@ -6,6 +6,7 @@ using ProcessMining.Core.Domain.BaseModels;
 namespace ProcessMining.EndPoint.API.Controllers
 {
     [Authorize]
+    [DisableBaseOperations]
     public class RefreshTokenController : ProcessMiningControllerBase<RefreshToken>
     {
         private readonly IRefreshTokenService _service;
