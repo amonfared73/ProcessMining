@@ -3,26 +3,22 @@ using ProcessMining.Core.Domain.Enums;
 
 namespace ProcessMining.Core.Domain.Exceptions
 {
-    public class CrudException<T> : Exception where T : DomainObject
+    public class CrudException<T> : Exception
     {
-        public T Entity { get; }
         public BaseOperations BaseOperation { get; }
 
-        public CrudException(T entity, BaseOperations baseOperation)
+        public CrudException(BaseOperations baseOperation)
         {
-            Entity = entity;
             BaseOperation = baseOperation;
         }
 
-        public CrudException(string? message, T entity, BaseOperations baseOperation) : base(message)
+        public CrudException(string? message, BaseOperations baseOperation) : base(message)
         {
-            Entity = entity;
             BaseOperation = baseOperation;
         }
 
-        public CrudException(string? message, Exception? innerException, T entity, BaseOperations baseOperation) : base(message, innerException)
+        public CrudException(string? message, Exception? innerException, BaseOperations baseOperation) : base(message, innerException)
         {
-            Entity = entity;
             BaseOperation = baseOperation;
         }
     }
